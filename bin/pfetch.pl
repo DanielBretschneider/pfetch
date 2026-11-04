@@ -2,7 +2,7 @@
 # pfetch - A Perl-based system information display tool
 #
 # AUTHOR:     Daniel Bretschneider, daniel@bretschneider.cc
-# DATE:       2026-11-04         
+# DATE:       2026-11-04
 # VERSION:    1.0.0
 # LICENSE:    MIT License
 # DESCRIPTION: Displays system information (OS, Kernel, Uptime, etc.)
