@@ -1,111 +1,114 @@
 # pfetch
 
-> Display your system specs with style using Perl. A fastfetch-inspired CLI utility for Unix-like systems.
+**A lightweight system information fetch tool written in Perl.**
+
+pfetch is a small, minimalist command-line utility designed to display essential system information directly in your terminal.
+
+Inspired by tools like [pfetch](https://github.com/dylanaraps/pfetch) and [Fastfetch](https://github.com/fastfetch-cli/fastfetch), this project aims to provide a simple, customizable and lightweight alternative, with a focus on Linux systems.
+
+The project is written in **Perl 5** and serves as both a practical system administration tool and a learning project.
 
 ![Perl Version](https://img.shields.io/badge/Perl-5.0%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-## ✨ Features
+## Project Status
 
-*   **Written in Perl**: A clean, modern implementation distinct from Python-based clones.
-*   **Fast & Lightweight**: Minimal dependencies for quick startup times.
-*   **Customizable**: Easy to modify themes, colors, and output formats.
-*   **Cross-Platform**: Works on Linux, BSD, macOS (via WSL or native support).
-*   **Learning**: This is just for me learning.
+🚧 **Work in Progress**
 
-## 🛠 Installation
+pfetch is currently under active development. Features, architecture and functionality may change as the project evolves.
 
-Clone the repository and ensure you have Perl 5.10+ installed.
+The initial development target is Linux, with Arch-based distributions such as CachyOS serving as the primary testing environment.
 
-```bash
-git clone https://github.com/yourusername/pfetch.git
-cd pfetch
-```
+## Planned Features
 
-To run directly:
-```bash
-perl bin/fastfetch.pl
-```
+- Display essential system information
+- Operating system and distribution detection
+- Kernel and architecture information
+- Hostname and shell detection
+- CPU and memory information
+- Minimalist ASCII art
+- Colored terminal output
+- Modular and maintainable architecture
+- Command-line options
+- Customizable themes and configuration
 
-Or install it to your system path (optional):
-```bash
-sudo mv bin/fastfetch.pl /usr/local/bin/pfetch
-chmod +x /usr/local/bin/pfetch
-```
+## Project Structure
 
-## 🚀 Usage
-
-Run the tool with no arguments for default output:
-```bash
-pfetch
-```
-
-Use flags to customize behavior:
-```bash
-# Show help
-pfetch --help
-
-# Verbose output
-pfetch -v
-
-# Custom color scheme (placeholder)
-pfetch --theme dark
-```
-
-## 📁 Project Structure
-
-This project follows a modular structure for maintainability:
+The planned project structure:
 
 ```text
 pfetch/
 ├── bin/
-│   └── fastfetch.pl    # Main executable entry point
+│   └── pfetch
 ├── lib/
-│   └── FastFetch.pm    # Core logic and fetchers
-├── themes/             # Color theme configurations
-└── README.md
+│   └── PFetch/
+│       ├── System.pm
+│       ├── Hardware.pm
+│       ├── Display.pm
+│       └── Colors.pm
+├── share/
+│   └── logos/
+├── t/
+│   ├── system.t
+│   └── display.t
+├── README.md
+├── LICENSE
+└── Makefile
 ```
 
-## 🧭 Roadmap
+The project follows a modular approach, separating system information gathering, hardware detection and terminal presentation.
 
-pfetch development roadmap
-1. Phase 1 – The foundation
-   Start here
-   - Create the Perl executable
-   - Set up the core module
-   - Implement --help and --version
-   - Display a simple system summary
-2. Phase 2 – System information
-   - Hostname
-   - Operating system and distribution
-   - Kernel version
-   - Architecture
-   - Uptime
-   - Shell
-3. Phase 3 – Terminal presentation
-   - ASCII distribution logo
-   - Colored output
-   - Consistent alignment
-   - Configurable colors
-4. Phase 4 – Hardware information
-   - CPU model
-   - Memory usage
-   - GPU information
-   - Disk usage
-5. Phase 5 – Customization
-   - --theme
-   - --config
-   - --verbose
-   - Custom information modules
-6. Phase 6 – Distribution
-   - Installation instructions
-   - Executable permissions
-   - AUR package for CachyOS/Arch
-   - Release v1.0.0
+## Requirements
 
-## 🤝 Author
+- Perl 5
+- A Linux-based operating system
+- A terminal emulator
 
-Hi! This is me, Daniel Bretschneider, from Vienna. Feel free to contact me via daniel@bretschneider.cc. 
+The project initially aims to use Perl's core modules wherever possible to minimize external dependencies.
 
-Also please visit my website at https://www.bretschneider.cc/
+## Installation
 
+Installation instructions will be added once the initial executable and project structure are implemented.
+
+For now, you can clone the repository:
+
+```bash
+git clone https://github.com/DanielBretschneider/pfetch.git
+cd pfetch
+```
+
+## Usage
+
+Usage instructions and available command-line options will be documented as functionality is implemented.
+
+The intended interface is:
+
+```bash
+pfetch
+pfetch --help
+pfetch --version
+```
+
+## Development
+
+pfetch is developed incrementally, with a focus on:
+
+- Readable and maintainable Perl code
+- Separation of responsibilities
+- Minimal external dependencies
+- Linux compatibility
+- Reliable system information detection
+
+Contributions, suggestions and feedback are welcome!
+
+## License
+
+This project is licensed under the terms of the [MIT License](LICENSE).
+
+---
+
+**Author:** [Daniel Bretschneider](https://github.com/DanielBretschneider)
+
+**Email:** [daniel@bretschneider.cc](mailto:daniel@bretschneider.cc)
+
+**Repository:** [github.com/DanielBretschneider/pfetch](https://github.com/DanielBretschneider/pfetch)
