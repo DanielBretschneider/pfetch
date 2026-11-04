@@ -66,6 +66,43 @@ pfetch/
 └── README.md
 ```
 
+## 🧭 Roadmap
+
+pfetch development roadmap
+1. Phase 1 – The foundation
+   Start here
+   - Create the Perl executable
+   - Set up the core module
+   - Implement --help and --version
+   - Display a simple system summary
+2. Phase 2 – System information
+   - Hostname
+   - Operating system and distribution
+   - Kernel version
+   - Architecture
+   - Uptime
+   - Shell
+3. Phase 3 – Terminal presentation
+   - ASCII distribution logo
+   - Colored output
+   - Consistent alignment
+   - Configurable colors
+4. Phase 4 – Hardware information
+   - CPU model
+   - Memory usage
+   - GPU information
+   - Disk usage
+5. Phase 5 – Customization
+   - --theme
+   - --config
+   - --verbose
+   - Custom information modules
+6. Phase 6 – Distribution
+   - Installation instructions
+   - Executable permissions
+   - AUR package for CachyOS/Arch
+   - Release v1.0.0
+
 ## 🤝 Author
 
 Hi! This is me, Daniel Bretschneider, from Vienna. Feel free to contact me via daniel@bretschneider.cc. 
