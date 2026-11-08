@@ -32,6 +32,8 @@ The initial development target is Linux, with Arch-based distributions such as C
 - Command-line options
 - Customizable themes and configuration
 
++ Added bash folder: This is just a small exercise in bash scripting. Goal is to generate an HTML report on all kinds of system information.
+
 ## Project Structure
 
 The planned project structure:
