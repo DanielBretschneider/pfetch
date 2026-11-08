@@ -38,7 +38,7 @@ set -Eeuo pipefail
 # ------------------------------------------------------------------------------
 
 # script version
-readonly VERSION="v1.0"
+readonly VERSION="v1.0.3"
 
 # programs needed for sys_info_page to do it's job
 readonly PROGRAMS=("lsusb" "lsblk" "lscpu" "ip" "free")
@@ -86,11 +86,11 @@ check_dependencies() {
     for curr_program in "${PROGRAMS[@]}"; do
         printf "[*] checking if '%s' is installed..." "$curr_program"
 
-        if command_exists $curr_program; then
-            printf "$OK_GREEN\n"
+        if command_exists "$curr_program"; then
+            printf '%b\n' "$OK_GREEN"
         else
-            printf "$ERROR_RED\n"
-            printf "[-] Please install '%s' so we can continue." "$curr_program"
+            printf '%b\n' "$ERROR_RED"
+            printf "[-] Please install '%s' so we can continue." "$curr_program" >&2
 
             # return 1: error command not found.
             return 1
@@ -112,10 +112,8 @@ main() {
 
     # Exit the script if return value of check_dependencies() is non zero.
     if ! check_dependencies; then
-        exit 1
+        return 1
     fi
-
-
 }
 
 
