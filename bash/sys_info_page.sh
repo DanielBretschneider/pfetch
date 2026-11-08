@@ -30,13 +30,28 @@
 # CONFIGURATION
 # ==============================================================================
 
+set -Eeuo pipefail
+
+
 # ------------------------------------------------------------------------------
 # Global Variables
 # ------------------------------------------------------------------------------
 
+# script version
+readonly VERSION="v1.0"
+
 # ------------------------------------------------------------------------------
 # Constants
 # ------------------------------------------------------------------------------
+
+# script dir and file name
+readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+readonly SCRIPT_NAME="$(basename -- "${BASH_SOURCE[0]}")"
+
+# report dir and file name
+readonly DESKTOP_DIR="$HOME/Desktop"
+readonly REPORT_DIR="$DESKTOP_DIR/sys_info_report"
+readonly REPORT_FILE="$REPORT_DIR/sys_info_report.html"
 
 # ------------------------------------------------------------------------------
 # Environment Variables
@@ -52,17 +67,15 @@
 # Description: Short description of what the function does.
 # ------------------------------------------------------------------------------
 
-function_name() {
-    # Function code
-}
-
 
 # ==============================================================================
 # MAIN
 # ==============================================================================
 
 main() {
-    # Main script execution starts here
+    printf '[*] Starting %s %s\n' "$SCRIPT_NAME" "$VERSION"
+
+    printf '[-] The report will be created at %s\n' "$REPORT_FILE"
 }
 
 
