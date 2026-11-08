@@ -71,7 +71,7 @@ readonly REPORT_FILE="$REPORT_DIR/sys_info_report.html"
 
 # ------------------------------------------------------------------------------
 # Function: command_exists()
-# Description: This function checks if
+# Description: This function checks if a certain program/command exists.
 # ------------------------------------------------------------------------------
 command_exists() {
     command -v "$1" &> /dev/null
@@ -101,6 +101,38 @@ check_dependencies() {
     return 0
 }
 
+
+# ------------------------------------------------------------------------------
+# Function: html_escape()
+# Description: This function changes special characters into their html entity.
+#
+# &	-> &amp;
+# <	-> &lt;
+# >	-> &gt;
+# "	-> &quot;
+# '	-> &#39;
+#
+# Explanation:
+# ┌───┐  ┌─────────────────────┐  ┌──┐
+# │sed│  │-e 's/&/\&amp;/g'    │  │g │
+# └───┘  └─────────────────────┘  └──┘
+#  Command    Substitution command   Global flag
+#
+# s -> Substitute (find and replace)
+# g -> global flag (replace ALL occurences, not only the first)
+# ------------------------------------------------------------------------------
+html_escape() {
+    local input="$1"
+
+    printf '%s' "$input" | \
+        sed -e 's/&/\&amp;/g' \
+            -e 's/</\&lt;/g' \
+            -e 's/>/\&gt;/g' \
+            -e 's/"/\&quot;/g' \
+            -e "s/'/\&#39;/g"
+}
+
+
 # ==============================================================================
 # MAIN
 # ==============================================================================
@@ -114,6 +146,10 @@ main() {
     if ! check_dependencies; then
         return 1
     fi
+
+    # testing html_escape
+    test_string='Daniel'\''s PC & Linux <CachyOS> "Awesome"'
+    html_escape "$test_string"
 }
 
 
