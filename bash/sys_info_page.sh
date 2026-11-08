@@ -40,6 +40,13 @@ set -Eeuo pipefail
 # script version
 readonly VERSION="v1.0"
 
+# programs needed for sys_info_page to do it's job
+readonly PROGRAMS=("lsusb" "lsblk" "lscpu" "ip" "free")
+
+# colored messages
+readonly OK_GREEN="\e[32mOk\e[0m"
+readonly ERROR_RED="\e[31mError\e[0m"
+
 # ------------------------------------------------------------------------------
 # Constants
 # ------------------------------------------------------------------------------
@@ -63,19 +70,52 @@ readonly REPORT_FILE="$REPORT_DIR/sys_info_report.html"
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-# Function: function_name
-# Description: Short description of what the function does.
+# Function: command_exists()
+# Description: This function checks if
 # ------------------------------------------------------------------------------
+command_exists() {
+    command -v "$1" &> /dev/null
+}
 
+
+# ------------------------------------------------------------------------------
+# Function: check_dependencies()
+# Description: Check if all programs in $PROGRAMS are installed on device
+# ------------------------------------------------------------------------------
+check_dependencies() {
+    for curr_program in "${PROGRAMS[@]}"; do
+        printf "[*] checking if '%s' is installed..." "$curr_program"
+
+        if command_exists $curr_program; then
+            printf "$OK_GREEN\n"
+        else
+            printf "$ERROR_RED\n"
+            printf "[-] Please install '%s' so we can continue." "$curr_program"
+
+            # return 1: error command not found.
+            return 1
+        fi
+    done
+
+    # return 0: success
+    return 0
+}
 
 # ==============================================================================
 # MAIN
 # ==============================================================================
 
 main() {
+    # greeting
     printf '[*] Starting %s %s\n' "$SCRIPT_NAME" "$VERSION"
+    printf '[*] Checking dependencies...\n'
 
-    printf '[-] The report will be created at %s\n' "$REPORT_FILE"
+    # Exit the script if return value of check_dependencies() is non zero.
+    if ! check_dependencies; then
+        exit 1
+    fi
+
+
 }
 
 
