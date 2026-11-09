@@ -47,6 +47,9 @@ readonly PROGRAMS=("lsusb" "lsblk" "lscpu" "ip" "free")
 readonly OK_GREEN="\e[32mOk\e[0m"
 readonly ERROR_RED="\e[31mError\e[0m"
 
+# Operating system information
+declare -A OS_INFO=()
+
 # ------------------------------------------------------------------------------
 # Constants
 # ------------------------------------------------------------------------------
@@ -133,6 +136,63 @@ html_escape() {
 }
 
 
+# ------------------------------------------------------------------------------
+# Function: get_os_info()
+# Description: Collects operating system and kernel information.
+#
+# Our goal is to retrieve:
+# - Distribution name (e.g. CachyOS)
+# - Distribution version
+# - Kernel version
+# - System architecture
+# - Hostname
+#
+# | Information             | Command or File                            |
+# |-------------------------|--------------------------------------------|
+# | Distribution Name       | `cat /etc/os-release` or `lsb_release -a`  |
+# | Distribution Version    | Same as above (`VERSION_ID`, `VERSION`)    |
+# | Kernel Version          | `uname -r`                                 |
+# | System Architecture     | `uname -m` or `arch`                       |
+# | Hostname                | `hostname` or `cat /etc/hostname`          |
+#
+# ------------------------------------------------------------------------------
+get_os_info() {
+    # check if /etc/os-release exists
+    if [[ ! -r /etc/os-release ]]; then
+        printf "[-] Cannot read /etc/os-release\n" >&2
+        return 1
+    fi
+
+    # load operating system information
+    local os_name=""
+    local os_pretty_name=""
+    local os_version=""
+
+    # source into a function scope using a subshell
+    source /etc/os-release
+
+    # collect operating system information
+    OS_INFO["distribution"]="${PRETTY_NAME:-${NAME:-Unknown}}"
+    OS_INFO["version"]="${VERSION_ID:-Unknown}"
+    OS_INFO["kernel"]="$(uname -r)"
+    OS_INFO["architecture"]="$(uname -m)"
+    OS_INFO["hostname"]="$(hostname)"
+}
+
+
+# ------------------------------------------------------------------------------
+# Function: print_os_info()
+# Description: Print gathered operating system information to terminal.
+# ------------------------------------------------------------------------------
+print_os_info() {
+    printf '\n===== SYSTEM INFORMATION =====\n'
+
+    for key in "${!OS_INFO[@]}"; do
+        printf '%-15s : %s\n' "$key" "${OS_INFO[$key]}"
+    done
+}
+
+
 # ==============================================================================
 # MAIN
 # ==============================================================================
@@ -148,8 +208,17 @@ main() {
     fi
 
     # testing html_escape
-    test_string='Daniel'\''s PC & Linux <CachyOS> "Awesome"'
-    html_escape "$test_string"
+    # test_string='Daniel'\''s PC & Linux <CachyOS> "Awesome"'
+    # html_escape "$test_string"
+
+    # collect operating system information
+    get_os_info || return 1
+
+    # print operating system information
+    print_os_info
+
+    # return code success
+    return 0
 }
 
 
